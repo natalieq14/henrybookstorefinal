@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+    command: >
+      bash -c "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./app:/app
+      - ./data/web:/vol/web
+    environment:
+      - DJANGO_SECRET_KEY=henrybookstoresecretkey
+      - DJANGO_ALLOWED_HOSTS=127.0.0.1
+      - DJANGO_CSRF_TRUSTED_ORIGINS=http://127.0.0.1
+      - DJANGO_DEBUG=1
+      - DB_HOST=postgresdb
+      - DB_NAME=henrybookstoredb
+      - DB_USER=henrybookstoreuser
+      - DB_PASS=henrybookstorepass
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    image: postgres:15.2
+    environment:
+      - POSTGRES_DB=henrybookstoredb
+      - POSTGRES_USER=henrybookstoreuser
+      - POSTGRES_PASSWORD=henrybookstorepass

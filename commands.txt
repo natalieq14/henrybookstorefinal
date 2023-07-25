@@ -1,0 +1,63 @@
+docker-compose run --rm app bash -c "django-admin startproject app ."
+docker-compose run --rm app bash -c "python manage.py startapp henrybookstore"
+docker-compose run --rm app bash -c "python manage.py migrate"
+
+docker-compose build
+docker-compose up
+
+docker-compose run --rm app bash -c "python manage.py makemigrations"
+docker-compose run --rm app bash -c "python manage.py migrate"
+docker-compose run --rm app bash -c "python manage.py createsuperuser"
+
+#Install Docker Engine on Ubuntu
+https://docs.docker.com/engine/install/ubuntu/
+
+# after installing docker
+docker --version
+docker compose version
+
+
+# add ubuntu user to docker group
+sudo usermod -aG docker ubuntu
+# should reconnect after this command
+
+# ssh-keygen for github
+ssh-keygen -t ed25519 -C "Github deploy key"
+cat ~/.ssh/id_ed25519.pub
+
+# copy key and create deploy key in github
+# clone the source from github repo to aws server
+
+cp .env.sample .env
+# get domain name and update .env with your domain name
+
+#run the following command to generate the first SSH certificate:
+docker compose -f docker-compose-deploy.yml run --rm certbot /opt/certify-init.sh
+
+# build image
+docker compose -f docker-compose-deploy.yml build
+
+# run 
+docker compose -f docker-compose-deploy.yml up
+
+# create superuser
+docker compose -f docker-compose-deploy.yml run --rm app bash -c "python manage.py createsuperuser"
+
+
+# stop service
+docker compose -f docker-compose-deploy.yml down
+# start service
+docker compose -f docker-compose-deploy.yml up
+
+# To renew certificate
+docker compose -f docker-compose-deploy.yml run --rm certbot sh -c "certbot renew"
+
+#deploy command
+#clean
+docker compose -f docker-compose-deploy.yml down --volumes
+
+# after source update
+docker compose -f docker-compose-deploy.yml build app
+
+# after source update
+docker compose -f docker-compose-deploy.yml up --no-deps -d app
