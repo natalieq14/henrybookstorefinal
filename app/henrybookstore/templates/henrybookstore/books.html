@@ -1,0 +1,38 @@
+
+{% extends 'henrybookstore/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    
+  <div class="container mt-5 pt-3">
+
+    <div class="row">
+        <h2>{{ title }}</h2>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Authors</th>
+                <th>Title</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+               {% for book in books %}
+              <tr>
+                <td>{{ book.authors }}</td>
+                <td>{{ book.title }}</td>
+                <td>${{ book.price }}</td>
+              </tr>    
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    
+    
+  </div><!-- /.container -->
+{% endblock %}

@@ -1,0 +1,32 @@
+
+{% block content %}
+    
+  <div class="container mt-5 pt-3">
+
+    <div class="row">
+        <h2>{{ title }} - {{ branch }}</h2>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Authors</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+               {% for inv in inventory %}
+              <tr>
+                <td>{{ inv.book.authors }}</td>
+                <td>{{ inv.book.title }}</td>
+                <td>${{ inv.book.price }}</td>
+                <td>{{ inv.quantity }}</td>
+              </tr>    
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>    
+    
+  </div><!-- /.container -->
+{% endblock %}

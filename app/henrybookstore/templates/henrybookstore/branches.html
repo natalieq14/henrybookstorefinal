@@ -1,0 +1,42 @@
+
+{% extends 'henrybookstore/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    
+  <div class="container mt-5 pt-3">
+
+    <div class="row">
+        <h2>{{ title }}</h2>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Zip</th>
+                <th>Inventory</th>
+              </tr>
+            </thead>
+            <tbody>
+               {% for branch in branches %}
+              <tr>
+                <td>{{ branch.name }}</td>
+                <td>{{ branch.address }}</td>
+                <td>{{ branch.city }}</td>
+                <td>{{ branch.zip }}</td>
+                <td><a href="/inventory/branch/{{ branch.id }}"> Inventory </a></td>
+              </tr>    
+              {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    
+    
+  </div><!-- /.container -->
+{% endblock %}
