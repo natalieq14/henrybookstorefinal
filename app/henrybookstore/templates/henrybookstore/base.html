@@ -1,0 +1,23 @@
+{% extends 'henrybookstore/bootstrap.html' %}
+
+{% load django_bootstrap5 %}
+
+{% load static %}
+
+{% block bootstrap5_extra_head %}    
+{% endblock %} 
+
+{% block bootstrap5_content %}
+
+  {% include 'henrybookstore/navbar.html' %}
+
+  <main>
+
+    {% block content %}
+        (no content)
+    {% endblock %}
+
+  </main>
+  <!-- FOOTER -->
+  {% include 'henrybookstore/footer.html' %}
+{% endblock %}
